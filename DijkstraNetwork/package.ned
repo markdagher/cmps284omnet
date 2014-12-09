@@ -1,0 +1,3 @@
+package dijkstranetwork;
+
+@license(LGPL);
