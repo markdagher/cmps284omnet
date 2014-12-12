@@ -19,6 +19,7 @@
 #include <string.h>
 #include <omnetpp.h>
 #include <configNetwork_m.h>
+#include <map>
 
 class router : public cSimpleModule{
 protected:
@@ -33,7 +34,10 @@ public:
     virtual void broadcastMessage(ConfigNetwork *msg);
     virtual bool isConfigured();
     virtual void setConfigured(bool conf);
+    virtual void generateForwardingTable(ConfigNetwork *conf);
+    virtual int getLinkWeight(std::string linkInfo, ConfigNetwork *conf);
 };
+
 
 Define_Module(router);
 

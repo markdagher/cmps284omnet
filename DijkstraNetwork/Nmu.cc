@@ -32,7 +32,7 @@ void Nmu::initialize()
         int srcID = par("sourceID");
         int destID = par("destinationID");
         std::string weights = par("pathsWeight");
-        ConfigNetwork *conf = new ConfigNetwork(msgname, 0, srcID, destID, weights);
+        ConfigNetwork *conf = new ConfigNetwork(msgname, 0, srcID, destID);
         scheduleAt(0.0, conf);
 }
 

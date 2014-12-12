@@ -22,25 +22,76 @@
  * {
  *     int sourceID;
  *     int destinationID;
+ * 
+ *     int n0g1Tn1g0 = 2;
+ *     int n0g2Tn8g0 = 10;
+ * 
+ *     int n1g1Tn2g0 = 4;
+ *     int n1g2Tn3g0 = 20;
+ * 
+ *     int n2g1Tn5g0 = 14;
+ * 
+ *     int n3g1Tn4g0 = 9;
+ *     int n3g1Tn10g0 = 18;
+ * 
+ *     int n4g1Tn5g1 = 7;
+ *     int n4g2Tn6g0 = 24;
+ * 
+ *     int n5g2Tn7g0 = 13;
+ *     int n5g3Tn12g0 = 1;
+ * 
+ *     int n6g1Tn8g1 = 490;
+ * 
+ *     int n7g1Tn9g1 = 3;
+ * 
+ *     int n8g2Tn9g0 = 15;
+ * 
+ *     int n9g2Tn11g0 = 30;
+ *     int n9g3Tn13g0 = 29;
+ * 
+ *     int n10g1Tn13g1 = 8;
+ * 
+ *     int n11g1Tn12g1 = 6;
+ * 
+ *     int n12g2Tn13g2 = 2;
+ * 
  * }
  * </pre>
  */
 class ConfigNetwork : public ::cMessage
 {
-protected:
+  protected:
     int sourceID_var;
     int destinationID_var;
-    std::string weights_var;
+    int n0g1Tn1g0_var;
+    int n0g2Tn8g0_var;
+    int n1g1Tn2g0_var;
+    int n1g2Tn3g0_var;
+    int n2g1Tn5g0_var;
+    int n3g1Tn4g0_var;
+    int n3g1Tn10g0_var;
+    int n4g1Tn5g1_var;
+    int n4g2Tn6g0_var;
+    int n5g2Tn7g0_var;
+    int n5g3Tn12g0_var;
+    int n6g1Tn8g1_var;
+    int n7g1Tn9g1_var;
+    int n8g2Tn9g0_var;
+    int n9g2Tn11g0_var;
+    int n9g3Tn13g0_var;
+    int n10g1Tn13g1_var;
+    int n11g1Tn12g1_var;
+    int n12g2Tn13g2_var;
 
-private:
+  private:
     void copy(const ConfigNetwork& other);
 
-protected:
+  protected:
     // protected and unimplemented operator==(), to prevent accidental usage
     bool operator==(const ConfigNetwork&);
 
-public:
-    ConfigNetwork(const char *name=NULL, int kind=0, int srcID=0, int destID=0, std::string weights="");
+  public:
+    ConfigNetwork(const char *name=NULL, int kind=0, int srcID=0, int destID=0);
     ConfigNetwork(const ConfigNetwork& other);
     virtual ~ConfigNetwork();
     ConfigNetwork& operator=(const ConfigNetwork& other);
@@ -53,7 +104,44 @@ public:
     virtual void setSourceID(int sourceID);
     virtual int getDestinationID() const;
     virtual void setDestinationID(int destinationID);
-    virtual std::string getPathsWeight() const;
+    virtual int getN0g1Tn1g0() const;
+    virtual void setN0g1Tn1g0(int n0g1Tn1g0);
+    virtual int getN0g2Tn8g0() const;
+    virtual void setN0g2Tn8g0(int n0g2Tn8g0);
+    virtual int getN1g1Tn2g0() const;
+    virtual void setN1g1Tn2g0(int n1g1Tn2g0);
+    virtual int getN1g2Tn3g0() const;
+    virtual void setN1g2Tn3g0(int n1g2Tn3g0);
+    virtual int getN2g1Tn5g0() const;
+    virtual void setN2g1Tn5g0(int n2g1Tn5g0);
+    virtual int getN3g1Tn4g0() const;
+    virtual void setN3g1Tn4g0(int n3g1Tn4g0);
+    virtual int getN3g1Tn10g0() const;
+    virtual void setN3g1Tn10g0(int n3g1Tn10g0);
+    virtual int getN4g1Tn5g1() const;
+    virtual void setN4g1Tn5g1(int n4g1Tn5g1);
+    virtual int getN4g2Tn6g0() const;
+    virtual void setN4g2Tn6g0(int n4g2Tn6g0);
+    virtual int getN5g2Tn7g0() const;
+    virtual void setN5g2Tn7g0(int n5g2Tn7g0);
+    virtual int getN5g3Tn12g0() const;
+    virtual void setN5g3Tn12g0(int n5g3Tn12g0);
+    virtual int getN6g1Tn8g1() const;
+    virtual void setN6g1Tn8g1(int n6g1Tn8g1);
+    virtual int getN7g1Tn9g1() const;
+    virtual void setN7g1Tn9g1(int n7g1Tn9g1);
+    virtual int getN8g2Tn9g0() const;
+    virtual void setN8g2Tn9g0(int n8g2Tn9g0);
+    virtual int getN9g2Tn11g0() const;
+    virtual void setN9g2Tn11g0(int n9g2Tn11g0);
+    virtual int getN9g3Tn13g0() const;
+    virtual void setN9g3Tn13g0(int n9g3Tn13g0);
+    virtual int getN10g1Tn13g1() const;
+    virtual void setN10g1Tn13g1(int n10g1Tn13g1);
+    virtual int getN11g1Tn12g1() const;
+    virtual void setN11g1Tn12g1(int n11g1Tn12g1);
+    virtual int getN12g2Tn13g2() const;
+    virtual void setN12g2Tn13g2(int n12g2Tn13g2);
 };
 
 inline void doPacking(cCommBuffer *b, ConfigNetwork& obj) {obj.parsimPack(b);}

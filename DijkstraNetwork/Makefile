@@ -130,7 +130,9 @@ $O/cmps284Packet_m.o: cmps284Packet_m.cc \
 	cmps284Packet_m.h
 $O/configNetwork_m.o: configNetwork_m.cc \
 	configNetwork_m.h
-$O/router.o: router.cc
+$O/router.o: router.cc \
+	configNetwork_m.h \
+	router.h
 $O/trafficGen.o: trafficGen.cc \
 	SELF_m.h \
 	cmps284Packet_m.h \
