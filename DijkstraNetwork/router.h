@@ -24,6 +24,7 @@
 class router : public cSimpleModule{
 protected:
     bool configured;
+    std::map<int, std::pair<int, int>> forwardingTable;
 
 public:
     router();

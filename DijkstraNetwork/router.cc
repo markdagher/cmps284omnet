@@ -87,36 +87,52 @@ void router::broadcastMessage(ConfigNetwork *msg)
 
 void router::generateForwardingTable(ConfigNetwork *conf){
 
-
+//    int destination = conf->getDestinationID();
 
     //Int array that will hold the indexes of the nodes visited by Dijkstra (represents N');
     int visitedNodes[14];
 
-    //Pair that will represent the pair (D(v), P(v))
-    std::pair<int, std::string> costNPred;
+    //D(v) for each node
+    int totalCostToRouter[14];
 
-    //Pair that will represent the mapping of the destination to it's shortest path
-    std::pair<std::pair<int, std::string>, std::string> costToDest;
-
-    //Set that will hold the shortest paths for all the nodes
-    std::set<std::pair<std::pair<int, std::string>, std::string>> nodePaths;
+    //P(v) for each node
+    int predecessorForEachRouter[14];
 
     visitedNodes[0] = this->getParentModule()->getIndex();
 
-    for (cModule::GateIterator i(this->getParentModule()); !i.end(); i++)
-    {
-        std::string nodeInfo = "ngTng";
-        cGate *gate = i();
-        if(gate->getType() == cGate::OUTPUT){
-            if(gate->getNextGate()->getOwnerModule()->getIndex() == visitedNodes[0]){
-                nodeInfo.insert(1, std::to_string(this->getParentModule()->getIndex()));
-                nodeInfo.insert(3, std::to_string(gate->getIndex()));
-                nodeInfo.insert(5, std::to_string(gate->getNextGate()->getOwnerModule()->getIndex()));
-                nodeInfo.insert(7, std::to_string(gate->getNextGate()->getIndex()));
-                getLinkWeight(nodeInfo, conf);
+    cModule *network = this->getParentModule()->getParentModule();
+
+    for(cModule::SubmoduleIterator i(network); !i.end(); i++){
+
+        cModule *node = i();
+
+        EV << node->getIndex();
+
+        for (cModule::GateIterator i(this->getParentModule()); !i.end(); i++)
+        {
+            std::string nodeInfo = "ngTng";
+            cGate *gate = i();
+            if(gate->getType() == cGate::OUTPUT && gate->isConnectedOutside()){
+                if((strcmp(gate->getNextGate()->getOwnerModule()->getName(), "mainNMU")) != 0){ //(gate->getNextGate()->getOwnerModule()->getIndex() == destination) &&
+                    for(int i = 0; i < 14; i++){
+                        if(gate->getNextGate()->getOwnerModule()->getIndex() == i){
+                            nodeInfo.insert(1, std::to_string(this->getParentModule()->getIndex()));
+                            nodeInfo.insert(3, std::to_string(gate->getIndex()));
+                            nodeInfo.insert(5, std::to_string(gate->getNextGate()->getOwnerModule()->getIndex()));
+                            nodeInfo.insert(7, std::to_string(gate->getNextGate()->getIndex()));
+
+                            totalCostToRouter[i] = getLinkWeight(nodeInfo, conf);
+                            predecessorForEachRouter[i] = this->getParentModule()->getIndex();
+                        }
+                        else{
+                            totalCostToRouter[i] = -1;
+                        }
+                    }
+                }
             }
         }
     }
+
 }
 
 int router::getLinkWeight(std::string linkInfo, ConfigNetwork *conf ){
@@ -148,77 +164,77 @@ int router::getLinkWeight(std::string linkInfo, ConfigNetwork *conf ){
     switch (linkNumber) {
 
     case (1):
-            return conf->getN0g1Tn1g0();
+                                            return conf->getN0g1Tn1g0();
     break;
     case (2):
-            return conf->getN0g2Tn8g0();
+                                            return conf->getN0g2Tn8g0();
     break;
     case (3):
-            return conf->getN1g1Tn2g0();
+                                            return conf->getN1g1Tn2g0();
     break;
 
     case (4):
-            return conf->getN1g2Tn3g0();
+                                            return conf->getN1g2Tn3g0();
     break;
 
     case (5):
-            return conf->getN2g1Tn5g0();
+                                            return conf->getN2g1Tn5g0();
     break;
 
     case (6):
-            return conf->getN3g1Tn4g0();
+                                            return conf->getN3g1Tn4g0();
     break;
 
     case (7):
-            return conf->getN3g1Tn10g0();
+                                            return conf->getN3g1Tn10g0();
     break;
 
     case (8):
-            return conf->getN4g1Tn5g1();
+                                            return conf->getN4g1Tn5g1();
     break;
 
     case (9):
-            return conf->getN4g2Tn6g0();
+                                            return conf->getN4g2Tn6g0();
     break;
 
     case (10):
-            return conf->getN5g2Tn7g0()  ;
+                                            return conf->getN5g2Tn7g0()  ;
     break;
 
     case (11):
-            return conf->getN5g3Tn12g0();
+                                            return conf->getN5g3Tn12g0();
     break;
 
     case (12):
-            return conf->getN6g1Tn8g1();
+                                            return conf->getN6g1Tn8g1();
     break;
 
     case (13):
-            return conf->getN7g1Tn9g1();
+                                            return conf->getN7g1Tn9g1();
     break;
 
     case (14):
-            return conf->getN8g2Tn9g0();
+                                            return conf->getN8g2Tn9g0();
     break;
 
     case (15):
-            return conf->getN9g2Tn11g0();
+                                            return conf->getN9g2Tn11g0();
     break;
 
     case (16):
-            return conf->getN9g3Tn13g0();
+                                            return conf->getN9g3Tn13g0();
     break;
 
     case (17):
-            return conf->getN10g1Tn13g1();
+                                            return conf->getN10g1Tn13g1();
     break;
 
     case (18):
-            return conf->getN11g1Tn12g1();
+                                            return conf->getN11g1Tn12g1();
     break;
 
     case (19):
-            return conf->getN12g2Tn13g2();
+                                            return conf->getN12g2Tn13g2();
     break;
 
     default:
